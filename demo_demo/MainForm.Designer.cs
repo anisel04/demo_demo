@@ -95,6 +95,10 @@ namespace demo_demo {
             comboBoxUpdatePartner = new ComboBox();
             labelUpdatePartner = new Label();
             pictureBoxUpdatePartner = new PictureBox();
+            tabPage1 = new TabPage();
+            dataGridView1 = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
             tabControlMain.SuspendLayout();
             tabPagePartners.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPartners).BeginInit();
@@ -106,6 +110,8 @@ namespace demo_demo {
             ((System.ComponentModel.ISupportInitialize)pictureBoxAddPartner).BeginInit();
             tabPageUpdatePartner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxUpdatePartner).BeginInit();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tabControlMain
@@ -114,6 +120,7 @@ namespace demo_demo {
             tabControlMain.Controls.Add(tabPageHistory);
             tabControlMain.Controls.Add(tabPageAddPartner);
             tabControlMain.Controls.Add(tabPageUpdatePartner);
+            tabControlMain.Controls.Add(tabPage1);
             tabControlMain.Dock = DockStyle.Fill;
             tabControlMain.Location = new Point(0, 0);
             tabControlMain.Margin = new Padding(3, 4, 3, 4);
@@ -816,6 +823,41 @@ namespace demo_demo {
             pictureBoxUpdatePartner.TabIndex = 6;
             pictureBoxUpdatePartner.TabStop = false;
             // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(dataGridView1);
+            tabPage1.Location = new Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(906, 567);
+            tabPage1.TabIndex = 4;
+            tabPage1.Text = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
+            dataGridView1.Location = new Point(362, 130);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(300, 188);
+            dataGridView1.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "Column1";
+            Column1.MinimumWidth = 6;
+            Column1.Name = "Column1";
+            Column1.Width = 125;
+            // 
+            // Column2
+            // 
+            Column2.HeaderText = "Column2";
+            Column2.MinimumWidth = 6;
+            Column2.Name = "Column2";
+            Column2.Width = 125;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -842,6 +884,8 @@ namespace demo_demo {
             tabPageUpdatePartner.ResumeLayout(false);
             tabPageUpdatePartner.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxUpdatePartner).EndInit();
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -910,5 +954,9 @@ namespace demo_demo {
         private Label label7;
         private TextBox textBoxUpdatePartnerName;
         private Label label8;
+        private TabPage tabPage1;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
     }
 }

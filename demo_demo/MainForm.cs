@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 
 namespace demo_demo {
@@ -12,14 +13,52 @@ namespace demo_demo {
             RefreshPartners();
         }
 
-        public void RefreshPartners() {
-            using (var db = new Context()) {
-                var partners = db.Partners.Include(p => p.PartnerType).Include(p => p.PartnerProducts).ToList();
+        public void RefreshPartners()
+        {
+            using (var db = new Context())
+            {
+                var partners = db.Partners.Include(p => p.PartnerType).Include(p => p.PartnerProducts).ThenInclude(pp => pp.Product).ToList();
                 dataGridViewPartners.Rows.Clear();
-                foreach (var p in partners) {
-                    dataGridViewPartners.Rows.Add(p.Id, $"{p.PartnerType.Type} | {p.Name}\n{p.Director}\n{p.Phone}\nРейтинг: {p.Rating}", $"{p.Discount}%");
+                foreach (var p in partners)
+                {
+                    dataGridViewPartners.Rows.Add(p.Id, $"{p.PartnerType.Type} | {p.Name}\n{p.Director}\n{p.Phone}\nРейтинг: {p.Rating}", $"{p.CountDeals}");
                 }
             }
+
+            //using (var db = new Context())
+            //{
+            //    // Загружаем данные с включением всех необходимых связей
+            //    var partners = db.Partners
+            //        .Include(p => p.PartnerType)
+            //        .Include(p => p.PartnerProducts)
+            //        .ThenInclude(pp => pp.Product) // Важно: включаем Product
+            //        .ToList();
+
+            //    dataGridViewPartners.Rows.Clear();
+
+            //    foreach (var p in partners)
+            //    {
+            //        // Вычисляем сумму потраченных денег
+            //        double totalSpending = 0;
+            //        if (p.PartnerProducts != null)
+            //        {
+            //            foreach (var pp in p.PartnerProducts)
+            //            {
+            //                if (pp?.Product != null)
+            //                {
+            //                    totalSpending += pp.Product.Price * pp.Quantity;
+            //                }
+            //            }
+            //        }
+
+            //        // Добавляем строку с данными
+            //        dataGridViewPartners.Rows.Add(
+            //            p.Id,
+            //            $"{p.PartnerType.Type} | {p.Name}\n{p.Director}\n{p.Phone}\nРейтинг: {p.Rating}",
+            //            $"{totalSpending}"
+            //        );
+            //    }
+            //}
         }
 
         public void RefreshHistory() {  
@@ -98,6 +137,26 @@ namespace demo_demo {
                         comboBoxUpdatePartner.ValueMember = "Id";
                         comboBoxUpdatePartner.SelectedValue = selectedId;
                         UpdatePartnerLoad();
+                    }
+                }
+            }
+            else if (tabControlMain.SelectedIndex == 4)
+            {
+                using (var db = new Context())
+                {
+                    //var ps = db.Partners.Select(p => new
+                    //{
+                    //    p.Name, Summ = p.PartnerProducts.Sum(pp => pp.Product.Price * pp.Quantity)
+                    //}).ToList();
+                    //foreach (var par in ps)
+                    //{
+                    //    dataGridView1.Rows.Add(par.Name, par.Summ);
+                    //}
+                    //var partners = db.Partners.Include(p => p.PartnerProduct).ThenInclude(pp => pp.Product).ToList();
+                      var partners = db.Partners.Include(p => p.PartnerProducts).ThenInclude(pp => pp.Product).ToList();
+                    foreach (var par in partners)
+                    {
+                        dataGridView1.Rows.Add(par.Name, par.TotalSpent);
                     }
                 }
             }
@@ -227,17 +286,33 @@ namespace demo_demo {
         public PartnerType PartnerType { get; set; }
 
         public virtual List<PartnerProduct> PartnerProducts { get; set; } = new();
-        public virtual int Discount {
-            get {
-                int totalSold = PartnerProducts?.Sum(pp => pp.Quantity) ?? 0;
 
-                if (totalSold < 10000) return 0;
-                if (totalSold < 50000) return 5;
-                if (totalSold < 300000) return 10;
-                return 15;
-            }
+        public virtual int CountDeals
+        {
+        get
+        {
+            return PartnerProducts.Count;
         }
-    }
+        }
+        public virtual double TotalSpent
+            {
+                get
+                {
+                    return PartnerProducts.Sum(pp => pp.Quantity * (pp.Product.Price));
+                }
+            }
+    public virtual double Discount {
+            get {
+            int totalSold = PartnerProducts?.Sum(pp => pp.Quantity) ?? 0;
+
+            if (totalSold < 10000) return 0;
+            if (totalSold < 50000) return 5;
+            if (totalSold < 300000) return 10;
+            return 15;
+        }
+        }
+
+}
 
     public class PartnerType {
         public int Id { get; set; }

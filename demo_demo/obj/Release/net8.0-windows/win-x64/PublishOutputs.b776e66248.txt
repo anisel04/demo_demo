@@ -1,0 +1,2 @@
+C:\Users\Andrey\source\repos\demo_demo\demo_demo\bin\Release\net8.0-windows\win-x64\publish\demo_demo.pdb
+C:\Users\Andrey\source\repos\demo_demo\demo_demo\bin\Release\net8.0-windows\win-x64\publish\demo_demo.exe

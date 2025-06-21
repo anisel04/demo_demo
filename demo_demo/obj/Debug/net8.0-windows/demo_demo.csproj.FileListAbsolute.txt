@@ -238,3 +238,4 @@ C:\Users\Andrey\source\repos\demo_demo\demo_demo\obj\Debug\net8.0-windows\refint
 C:\Users\Andrey\source\repos\demo_demo\demo_demo\obj\Debug\net8.0-windows\demo_demo.pdb
 C:\Users\Andrey\source\repos\demo_demo\demo_demo\obj\Debug\net8.0-windows\demo_demo.genruntimeconfig.cache
 C:\Users\Andrey\source\repos\demo_demo\demo_demo\obj\Debug\net8.0-windows\ref\demo_demo.dll
+C:\Users\Andrey\source\repos\demo_demo\demo_demo\obj\Debug\net8.0-windows\demo_demo.sourcelink.json
